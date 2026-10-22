@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- New mod icon showing one of the new symbols.
+
 ## 0.2.0
 
 - New symbol set: 138 heraldic symbols (beasts, skulls, crowns, castles, helms, weapons, shields,
