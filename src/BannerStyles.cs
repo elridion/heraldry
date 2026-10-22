@@ -14,8 +14,10 @@ namespace Heraldry
         private const float NormalWidth = 0.68f;
         private const float LargeWidth = 0.9f;
         // Flat symbols at full colour glare on the cloth, so the colour is scaled down; black stays black.
-        // The blue banner's darker cloth swallows a dimmed gold, so it gets a brighter symbol.
+        // The blue banner's darker cloth swallows a dimmed gold, so it gets a brighter symbol; on the
+        // green banner gold looks dull at normal brightness but glares at the blue banner's.
         public const float NormalBrightness = 0.7f;
+        private const float MediumBrightness = 0.8f;
         private const float BrightBrightness = 0.9f;
 
         private static readonly Color s_white = new Color32(242, 240, 234, 255);
@@ -29,7 +31,7 @@ namespace Heraldry
             { "piece_banner02", new BannerStyle(s_gold, NormalWidth, BrightBrightness) }, // blue, gold scrollwork
             { "piece_banner03", new BannerStyle(s_black, LargeWidth) },  // white with red stripes
             { "piece_banner04", new BannerStyle(s_white, NormalWidth) }, // dark red, white chain trim
-            { "piece_banner05", new BannerStyle(s_gold, NormalWidth) },  // green, gold scrollwork
+            { "piece_banner05", new BannerStyle(s_gold, NormalWidth, MediumBrightness) }, // green, gold scrollwork
             { "piece_banner06", new BannerStyle(s_black, LargeWidth) },  // blue, red and white stripes
             { "piece_banner07", new BannerStyle(s_black, LargeWidth) },  // white with light-blue stripes
             { "piece_banner08", new BannerStyle(s_black, NormalWidth) }, // yellow, dark gold trim
