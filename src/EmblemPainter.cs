@@ -37,11 +37,12 @@ namespace Heraldry
 
         public static string Key(BannerInfo info, int cloth, EmblemCode code) => info.PrefabName + "#" + cloth + "#" + code;
 
-        // The cloth's vanilla materials plus the symbol overlay, or null when there is nothing to paint
+        // The cloth's vanilla material plus the symbol overlay, or null when there is nothing to paint
         // (or no graphics device, as on a dedicated server). Pair every non-null result with Release(key).
+        // BannerPieces.FindCloth only hands over single-material cloth.
         public static Material[] Acquire(string key, BannerInfo info, int cloth, Material[] vanilla, EmblemCode code)
         {
-            if (code.IsEmpty || !CanPaint || vanilla.Length == 0 || !vanilla[0] || !vanilla[0].mainTexture) return null;
+            if (code.IsEmpty || !CanPaint || vanilla.Length != 1 || !vanilla[0] || !vanilla[0].mainTexture) return null;
             if (s_overlays.TryGetValue(key, out var overlay))
             {
                 overlay.Users++;
@@ -50,8 +51,8 @@ namespace Heraldry
 
             // The overlay only works if the cloth shader can clip by alpha; otherwise it would cover the
             // whole cloth.
-            var source = vanilla[vanilla.Length - 1];
-            if (!source || !source.HasProperty("_Cutoff"))
+            var source = vanilla[0];
+            if (!source.HasProperty("_Cutoff"))
             {
                 if (!s_warnedNoCutoff) Jotunn.Logger.LogWarning("Banner cloth shader has no alpha cutoff; emblems are disabled.");
                 s_warnedNoCutoff = true;
@@ -63,9 +64,7 @@ namespace Heraldry
             var texture = Paint(symbol, BannerStyles.For(info.PrefabName), info.UvRects[cloth], source.mainTexture);
             var material = MakeOverlayMaterial(source, texture);
 
-            var materials = new Material[vanilla.Length + 1];
-            vanilla.CopyTo(materials, 0);
-            materials[vanilla.Length] = material;
+            var materials = new[] { vanilla[0], material };
             s_overlays[key] = new Overlay { Materials = materials, Material = material, Texture = texture, Users = 1 };
             return materials;
         }
@@ -96,7 +95,7 @@ namespace Heraldry
 
             float scale = style.Width * width * 2f / symbol.Width;
             Stamp(design, width, height, symbol, scale, SymbolCenterFromTop * height, tint);
-            return BuildAtlas(design, width, height, uvRect, clear);
+            return BuildAtlas(design, width, height, uvRect);
         }
 
         // Draws the left half of the art centred on the design's right edge, so the mirrored cloth shows
@@ -128,7 +127,10 @@ namespace Heraldry
         }
 
         // Places the design at the cloth's UV rect, sized so the design keeps its resolution there.
-        private static Texture2D BuildAtlas(Color32[] design, int designWidth, int designHeight, Rect uvRect, Color32 outside)
+        // Outside the rect the design's edge texels are repeated. Transparent texels there would halve the
+        // filtered alpha at the rect's edge, which is the mirror line through the symbol's middle, right at
+        // the clip threshold, and could open a hairline gap down the centre.
+        private static Texture2D BuildAtlas(Color32[] design, int designWidth, int designHeight, Rect uvRect)
         {
             int width = Mathf.Clamp(Mathf.RoundToInt(designWidth / uvRect.width), designWidth, 4096);
             int height = Mathf.Clamp(Mathf.RoundToInt(designHeight / uvRect.height), designHeight, 4096);
@@ -138,12 +140,11 @@ namespace Heraldry
             var pixels = new Color32[width * height];
             for (int y = 0; y < height; y++)
             {
-                int dy = Mathf.FloorToInt((y + 0.5f - y0) / (y1 - y0) * designHeight);
+                int dy = Mathf.Clamp(Mathf.FloorToInt((y + 0.5f - y0) / (y1 - y0) * designHeight), 0, designHeight - 1);
                 for (int x = 0; x < width; x++)
                 {
-                    int dx = Mathf.FloorToInt((x + 0.5f - x0) / (x1 - x0) * designWidth);
-                    bool inside = dx >= 0 && dx < designWidth && dy >= 0 && dy < designHeight;
-                    pixels[y * width + x] = inside ? design[dy * designWidth + dx] : outside;
+                    int dx = Mathf.Clamp(Mathf.FloorToInt((x + 0.5f - x0) / (x1 - x0) * designWidth), 0, designWidth - 1);
+                    pixels[y * width + x] = design[dy * designWidth + dx];
                 }
             }
 

@@ -28,7 +28,7 @@ hold more Valheim lessons; read it when a pattern here is missing.
 | `src/EmblemPainter.cs` | Builds the symbol overlay material drawn over the vanilla cloth; shared, reference-counted cache |
 | `src/EmblemLibrary.cs` | Embedded symbol art by id, decoded lazily, with each image's mirror axis |
 | `src/EmblemCode.cs` | Parses and normalises the symbol text |
-| `src/BannerStyles.cs` | Symbol colour (white/gold/black) and width per vanilla banner, chosen by the user |
+| `src/BannerStyles.cs` | Hard-coded symbol colour (white/gold/black), brightness and width per vanilla banner, picked by eye in game |
 | `src/TextInputPatches.cs` | Feeds the open text box's text to the banner for the live preview |
 | `assets/emblems/` | Emblem art: `symbols/emblem_NN.png` (source in its README) |
 | `package/README.md`, `package/icon.png` | Mod page and icon shipped in the package |
@@ -73,8 +73,8 @@ behaviour works on the strength of a successful build.
 - **Every client and the server need the mod** (`NetworkCompatibility(EveryoneMustHaveMod, VersionStrictness.Minor)`).
 - **Dedicated servers have no graphics device.** `EmblemPainter.CanPaint` gates all texture work; the
   ZDO text still syncs.
-- **Docs follow code.** Recipes, codes and ranges described in `package/README.md` stay in sync with
-  `BannerPieces` and the art in the same change.
+- **Docs follow code.** The symbol range and the per-banner symbol table in `package/README.md` stay
+  in sync with the art and `BannerStyles` in the same change.
 
 ## Art and licensing
 

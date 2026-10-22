@@ -47,6 +47,11 @@ namespace Heraldry
             if (banner.GetComponent<EmblemBanner>()) return true;
 
             var info = new BannerInfo(banner.name);
+            foreach (var renderer in banner.GetComponentsInChildren<Renderer>(true))
+            {
+                if (LooksLikeCloth(renderer) && renderer.sharedMaterials.Length != 1)
+                    Jotunn.Logger.LogWarning($"Banner cloth '{renderer.name}' on {banner.name} has {renderer.sharedMaterials.Length} materials; it gets no emblem.");
+            }
             foreach (var renderer in FindCloth(banner))
             {
                 if (!TryGetUvRect(renderer, out var uvRect))
@@ -68,18 +73,22 @@ namespace Heraldry
         }
 
         // The cloth is the renderer whose first material's texture is a banner texture. The pole and
-        // crossbar use wood materials. Call this before any material swap, which renames the texture.
+        // crossbar use wood materials. Only single-material cloth is used: the overlay is drawn over the
+        // last submesh and placed by the UVs of the whole mesh, which only agree when there is one.
+        // Call this before the overlay is added, which appends a material.
         public static List<Renderer> FindCloth(GameObject root)
         {
             var result = new List<Renderer>();
             foreach (var r in root.GetComponentsInChildren<Renderer>(true))
-            {
-                var materials = r.sharedMaterials;
-                bool isBannerCloth = materials.Length > 0 && materials[0] && materials[0].mainTexture &&
-                    materials[0].mainTexture.name.IndexOf("banner", System.StringComparison.OrdinalIgnoreCase) >= 0;
-                if (isBannerCloth) result.Add(r);
-            }
+                if (LooksLikeCloth(r) && r.sharedMaterials.Length == 1) result.Add(r);
             return result;
+        }
+
+        private static bool LooksLikeCloth(Renderer renderer)
+        {
+            var materials = renderer.sharedMaterials;
+            return materials.Length > 0 && materials[0] && materials[0].mainTexture &&
+                materials[0].mainTexture.name.IndexOf("banner", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         // The strip of UV space the cloth samples. Vanilla cloth maps only the left half of the banner

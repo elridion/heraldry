@@ -11,7 +11,7 @@ classes it extends.
 ## Naming
 
 - Instance fields: `m_camelCase` (`m_nview`, `m_previewText`). Static fields: `s_camelCase`
-  (`s_emblemKey`, `s_painted`). Constants: `PascalCase` (`DesignWidth`, `MaxTextLength`).
+  (`s_emblemKey`, `s_overlays`). Constants: `PascalCase` (`DesignWidth`, `MaxTextLength`).
 - The plugin's `_harmony` is the one exception; do not spread that style.
 - Localization keys: `heraldry_*`.
 - Types are `internal` by default; components that implement vanilla interfaces (`EmblemBanner`) are `public class`.
