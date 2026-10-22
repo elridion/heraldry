@@ -31,6 +31,16 @@ the symbol's left half is shown on both sides.
 
 Every client and the server need the mod installed, at the same minor version.
 
+## Uninstalling
+
+Remove the mod from your mod manager; nothing else needs cleaning up. The mod adds no new pieces,
+so every banner stays in your world and simply looks vanilla again. Each banner keeps its symbol
+number as a few bytes of extra data that the game ignores, so if you reinstall the mod, the
+emblems come back.
+
+In multiplayer, the server and all players have to remove it together, since everyone needs the
+same version to connect.
+
 ## Credits
 
 - The symbol art is not covered by this mod's MIT license; all rights remain with its respective
