@@ -1,12 +1,11 @@
 # Heraldry
 
-Banners for your guild. Every vanilla banner can carry an emblem, chosen as easily as writing on a
-sign.
+Emblems for vanilla banners, as easy as editing a sign.
 
 ## Features
 
-- Works on the vanilla banners themselves: no new pieces, and banners you already built gain it too.
-  Without the mod, banners simply look vanilla again.
+- Works on the vanilla banners themselves: no new pieces, and banners you have already built can
+  carry emblems too. Without the mod, banners simply look vanilla again.
 - Interact with a banner and type a symbol number from 0 to 195, e.g. `42`.
 - The banner previews the symbol while you type. Enter saves it, Escape keeps the old one.
 - The symbol is embroidered over the vanilla banner's design, in a colour picked for each banner.
@@ -15,15 +14,15 @@ sign.
 
 ## Symbols
 
-196 somewhat familiar symbols. The banner is mirrored down the middle, so the symbol's left half
-is shown on both sides.
+There are 196 somewhat familiar symbols to choose from. The banner is mirrored down the middle, so
+the symbol's left half is shown on both sides.
 
 | Banner | Symbol |
 | --- | --- |
 | Black, Red, Purple, Orange | White |
 | Blue, Green | Gold |
 | Yellow, White | Black |
-| Red striped, Blue striped, Blue-red-white striped | Black, larger (no edge trim) |
+| Red-striped, blue-striped, blue-red-white-striped | Black, larger (no edge trim) |
 
 ## Requirements
 

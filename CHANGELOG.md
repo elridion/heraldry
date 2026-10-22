@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Larger symbols on the striped banners, which have no edge trim to clear.
+
 ## 0.1.0
 
 First release.

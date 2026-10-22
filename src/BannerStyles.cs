@@ -12,7 +12,9 @@ namespace Heraldry
     {
         // Symbol width as a share of the whole cloth width.
         private const float NormalWidth = 0.68f;
-        private const float LargeWidth = 0.9f;
+        // The art leaves a margin: a typical symbol fills about 75% of its image width, so the image may
+        // be wider than the cloth. Only the few widest symbols (over 119 of 125 pixels) touch the edge.
+        private const float LargeWidth = 1.05f;
         // Flat symbols at full colour glare on the cloth, so the colour is scaled down; black stays black.
         // The blue banner's darker cloth swallows a dimmed gold, so it gets a brighter symbol; on the
         // green banner gold looks dull at normal brightness but glares at the blue banner's.

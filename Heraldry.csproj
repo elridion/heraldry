@@ -6,7 +6,7 @@
     <RootNamespace>Heraldry</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
@@ -34,7 +34,7 @@
 
   <!-- Thunderstore/Hexium package: dotnet build -c Release -t:Package -->
   <PropertyGroup>
-    <PackageDescription>Banners that carry guild emblems, chosen like writing on a sign.</PackageDescription>
+    <PackageDescription>Emblems for vanilla banners, as easy as editing a sign.</PackageDescription>
     <PackageWebsite>https://github.com/elridion/heraldry</PackageWebsite>
     <PackageDependencies>"ValheimModding-Jotunn-2.30.2"</PackageDependencies>
     <PackageStagingDir>$(BaseIntermediateOutputPath)package\</PackageStagingDir>
