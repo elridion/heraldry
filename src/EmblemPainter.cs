@@ -17,9 +17,11 @@ namespace Heraldry
         // and the black and white banners carry ornaments near the top; this keeps the symbol below them.
         // Width, colour and brightness come from BannerStyles.
         private const float SymbolCenterFromTop = 0.4f;
-        // Width of the overlay's half-cloth design in pixels, about 3x the symbol art's own resolution there,
-        // so the clipped edge follows the art's smooth outline instead of its pixel steps.
-        private const int DesignWidth = 256;
+        // The overlay's half-cloth design has the vanilla texture's own resolution over the cloth's UV rect,
+        // times this. At a much finer resolution the symbol looked crisply printed on the softer cloth.
+        private const float ResolutionScale = 1f;
+        private const int MinDesignWidth = 32;
+        private const int MaxDesignWidth = 256;
         private const float AlphaCutoff = 0.5f;
 
         private static readonly Dictionary<string, Overlay> s_overlays = new Dictionary<string, Overlay>();
@@ -85,8 +87,7 @@ namespace Heraldry
             var tint = style.Color * style.Brightness;
             tint.a = 1f;
             float regionAspect = vanilla.height * uvRect.height / Mathf.Max(1f, vanilla.width * uvRect.width);
-            int width = DesignWidth;
-            int height = Mathf.Clamp(Mathf.RoundToInt(width * regionAspect), 1, 4096);
+            int width = Mathf.Clamp(Mathf.RoundToInt(vanilla.width * uvRect.width * ResolutionScale), MinDesignWidth, MaxDesignWidth);            int height = Mathf.Clamp(Mathf.RoundToInt(width * regionAspect), 1, 4096);
 
             // Transparent pixels still carry the tint, so filtering at the clipped edge doesn't darken it.
             var clear = (Color32)new Color(tint.r, tint.g, tint.b, 0f);

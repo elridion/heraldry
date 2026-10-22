@@ -39,5 +39,6 @@ and has a `CHANGELOG.md` section, then creates a GitHub release and publishes to
 
 ## License
 
-Code: [MIT](LICENSE). The somewhat familiar symbol art in `assets/emblems/` is not covered by the
-MIT license; all rights remain with its respective owners.
+Code: [MIT](LICENSE). The symbols in `assets/emblems/` are icons from
+[game-icons.net](https://game-icons.net) by Lorc, Delapouite and others, licensed under
+[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/); see `assets/emblems/README.md`.

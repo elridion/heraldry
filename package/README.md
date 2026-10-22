@@ -6,7 +6,7 @@ Emblems for vanilla banners, as easy as editing a sign.
 
 - Works on the vanilla banners themselves: no new pieces, and banners you have already built can
   carry emblems too. Without the mod, banners simply look vanilla again.
-- Interact with a banner and type a symbol number from 0 to 195, e.g. `42`.
+- Interact with a banner and type a symbol number from 0 to 137, e.g. `42`.
 - The banner previews the symbol while you type. Enter saves it, Escape keeps the old one.
 - The symbol is embroidered over the vanilla banner's design, in a colour picked for each banner.
 - Leave the number empty for a plain vanilla banner.
@@ -14,8 +14,9 @@ Emblems for vanilla banners, as easy as editing a sign.
 
 ## Symbols
 
-There are 196 somewhat familiar symbols to choose from. The banner is mirrored down the middle, so
-the symbol's left half is shown on both sides.
+There are 138 heraldic symbols to choose from: beasts, skulls, crowns, castles, helms, weapons,
+shields, heraldic charges, plants, stars, ships and more. The banner is mirrored down the middle,
+so every symbol is symmetric.
 
 | Banner | Symbol |
 | --- | --- |
@@ -43,8 +44,10 @@ same version to connect.
 
 ## Credits
 
-- The symbol art is not covered by this mod's MIT license; all rights remain with its respective
-  owners. This is a fan project and is not affiliated with or endorsed by them.
+- Symbols: icons from [game-icons.net](https://game-icons.net) by Lorc, Delapouite, Sbed, Caro
+  Asercion, Cathelineau, DarkZaitzev, Kier Heyl, Pepijn Poolman, Skoll and Sparker, licensed under
+  [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). They are cropped, resized and
+  recoloured for the banners.
 
 ## Source and issues
 

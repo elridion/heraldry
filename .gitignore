@@ -6,3 +6,4 @@ dist/
 *.user
 .claude/worktrees/
 .claude/settings.local.json
+assets/emblems/source/*.zip

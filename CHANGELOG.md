@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0
+
+- New symbol set: 138 heraldic symbols (beasts, skulls, crowns, castles, helms, weapons, shields,
+  heraldic charges, plants, stars, ships and more) from game-icons.net, numbered 0 to 137.
+- The symbol numbers now mean different symbols. Banners you already set show the new symbol with
+  the same number, and numbers above 137 show a plain banner; set them again to pick a new symbol.
+- Black symbols are a dark charcoal instead of near-black.
+- Symbols match the resolution of the banner cloth, so they no longer look sharper than the cloth.
+- Players on 0.1.x and 0.2.0 can't play together, since the same number would show different
+  symbols.
+
 ## 0.1.1
 
 - Larger symbols on the striped banners, which have no edge trim to clear.

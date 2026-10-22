@@ -12,8 +12,8 @@ namespace Heraldry
     {
         // Symbol width as a share of the whole cloth width.
         private const float NormalWidth = 0.68f;
-        // The art leaves a margin: a typical symbol fills about 75% of its image width, so the image may
-        // be wider than the cloth. Only the few widest symbols (over 119 of 125 pixels) touch the edge.
+        // Widths are of the symbol image, whose shape spans at most 80% of it (tools/make_symbols.ps1),
+        // so the image may be wider than the cloth: at 1.05 the widest shapes still clear the edges.
         private const float LargeWidth = 1.05f;
         // Flat symbols at full colour glare on the cloth, so the colour is scaled down; black stays black.
         // The blue banner's darker cloth swallows a dimmed gold, so it gets a brighter symbol; on the
@@ -24,7 +24,9 @@ namespace Heraldry
 
         private static readonly Color s_white = new Color32(242, 240, 234, 255);
         private static readonly Color s_gold = new Color32(214, 170, 74, 255);
-        private static readonly Color s_black = new Color32(28, 24, 22, 255);
+        // Dark charcoal rather than black: brightness scales it down further, and pure black read as a
+        // hole in the cloth.
+        private static readonly Color s_black = new Color32(64, 58, 54, 255);
 
         // Keyed by vanilla prefab name.
         private static readonly Dictionary<string, BannerStyle> s_styles = new Dictionary<string, BannerStyle>
