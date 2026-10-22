@@ -132,8 +132,8 @@ namespace Heraldry
         // the clip threshold, and could open a hairline gap down the centre.
         private static Texture2D BuildAtlas(Color32[] design, int designWidth, int designHeight, Rect uvRect)
         {
-            int width = Mathf.Clamp(Mathf.RoundToInt(designWidth / uvRect.width), designWidth, 4096);
-            int height = Mathf.Clamp(Mathf.RoundToInt(designHeight / uvRect.height), designHeight, 4096);
+            int width = BlockAligned(Mathf.Clamp(Mathf.RoundToInt(designWidth / uvRect.width), designWidth, 4096));
+            int height = BlockAligned(Mathf.Clamp(Mathf.RoundToInt(designHeight / uvRect.height), designHeight, 4096));
             int x0 = Mathf.FloorToInt(uvRect.xMin * width), x1 = Mathf.CeilToInt(uvRect.xMax * width);
             int y0 = Mathf.FloorToInt(uvRect.yMin * height), y1 = Mathf.CeilToInt(uvRect.yMax * height);
 
@@ -156,10 +156,19 @@ namespace Heraldry
                 anisoLevel = 4,
             };
             atlas.SetPixels32(pixels);
-            // Not readable afterwards: frees the CPU copy.
-            atlas.Apply(true, true);
+            // Compressed to DXT5, a quarter of RGBA32: the cloth's UV rect covers only part of the texture
+            // (half, on the mirrored cloth), so an uncompressed atlas costs megabytes per symbol shown.
+            // A flat colour and an alpha clip survive the compression unchanged to the eye. The fast
+            // compressor is enough for that, and keeps the hitch small when a symbol is first painted.
+            atlas.Apply(true, false);
+            atlas.Compress(false);
+            // Not readable afterwards: frees the CPU copy. The mipmaps were compressed along with it.
+            atlas.Apply(false, true);
             return atlas;
         }
+
+        // DXT compresses 4 x 4 blocks; other sizes would stay uncompressed.
+        private static int BlockAligned(int size) => Mathf.Min((size + 3) / 4 * 4, 4096);
 
         // A copy of the cloth material that draws only the symbol: alpha-clipped, untinted (the tint is in
         // the texture), and drawn after the opaque cloth. The vanilla normal map stays, so the symbol
