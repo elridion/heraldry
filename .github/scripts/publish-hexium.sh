@@ -16,7 +16,7 @@ zip="${1:?usage: publish-hexium.sh <package.zip>}"
 : "${HEXIUM_TOKEN:?HEXIUM_TOKEN is not set}"
 author="${HEXIUM_AUTHOR:-el_team}"
 # "Client & Server" and friends are not categories to send: Hexium derives them from the install location.
-categories="${HEXIUM_CATEGORIES:-[\"Building\", \"Pieces\", \"Valheim 1.0\", \"Open Source\"]}"
+categories="${HEXIUM_CATEGORIES:-[\"Building\", \"Valheim 1.0\", \"Open Source\"]}"
 # Every client and the server need the mod (NetworkCompatibility EveryoneMustHaveMod).
 install_location="${HEXIUM_INSTALL_LOCATION:-both}"
 api="${HEXIUM_API:-https://hexium.gg/api/experimental}"
