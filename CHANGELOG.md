@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2
+
+- Fixed banner cloth turning magenta in the falling pieces when a banner with a symbol is torn
+  down. The pieces now show the plain banner cloth.
+
 ## 0.2.1
 
 - New mod icon showing one of the new symbols.

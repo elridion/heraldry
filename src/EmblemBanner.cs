@@ -66,6 +66,21 @@ namespace Heraldry
             for (int i = 0; i < m_paintedKeys.Count; i++) EmblemPainter.Release(m_paintedKeys[i]);
         }
 
+        // Called by the fragments patch when the banner is torn down. Vanilla copies the cloth's materials
+        // onto the falling fragments, which outlive this banner; the overlay is destroyed with it, so the
+        // fragments would render magenta. They get the vanilla cloth instead, and nothing repaints it.
+        public void RemoveEmblem()
+        {
+            for (int i = 0; i < m_cloth.Count; i++)
+            {
+                if (m_cloth[i]) m_cloth[i].sharedMaterials = m_vanillaMaterials[i];
+                EmblemPainter.Release(m_paintedKeys[i]);
+                m_paintedKeys[i] = null;
+            }
+            m_cloth.Clear();
+            CancelInvoke();
+        }
+
         // Called by the text box patch every frame while the box is open for this banner.
         public void SetPreview(string text)
         {
