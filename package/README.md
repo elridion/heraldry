@@ -26,7 +26,7 @@ a pair facing each other.
 | Black, Red, Purple, Orange | White |
 | Blue, Green | Gold |
 | Yellow, White | Black |
-| Red-striped, blue-striped, blue-red-white-striped | Black, larger (no edge trim) |
+| Red-striped, blue-striped, blue-red-white-striped | Counterchanged: stripe colour on the white, white on the stripes; larger (no edge trim) |
 
 ## Requirements
 

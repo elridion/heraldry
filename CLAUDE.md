@@ -28,7 +28,7 @@ hold more Valheim lessons; read it when a pattern here is missing.
 | `src/EmblemPainter.cs` | Builds the symbol overlay material drawn over the vanilla cloth; shared, reference-counted cache |
 | `src/EmblemLibrary.cs` | Embedded symbol art by id, decoded lazily, with each image's mirror axis |
 | `src/EmblemCode.cs` | Parses and normalises the symbol text |
-| `src/BannerStyles.cs` | Hard-coded symbol colour (white/gold/black), brightness and width per vanilla banner, picked by eye in game |
+| `src/BannerStyles.cs` | Hard-coded symbol colour (white/gold/black) and width per vanilla banner; golds read from the vanilla cloth textures, the rest picked by eye in game |
 | `src/TextInputPatches.cs` | Feeds the open text box's text to the banner for the live preview |
 | `assets/emblems/` | Emblem art: `symbols/emblem_NN.png` and `symbols.csv` (ids, icon names, authors) |
 | `tools/make_symbols.ps1` | Generates the symbols from the game-icons.net archive; its list order is the symbol ids |

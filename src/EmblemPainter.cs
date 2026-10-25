@@ -15,7 +15,7 @@ namespace Heraldry
     {
         // Symbol centre as a share of the cloth height from the top. The top ~8% is behind the crossbar,
         // and the black and white banners carry ornaments near the top; this keeps the symbol below them.
-        // Width, colour and brightness come from BannerStyles.
+        // Width and colours come from BannerStyles.
         private const float SymbolCenterFromTop = 0.4f;
         // The overlay's half-cloth design has the vanilla texture's own resolution over the cloth's UV rect,
         // times this. At a much finer resolution the symbol looked crisply printed on the softer cloth.
@@ -84,26 +84,41 @@ namespace Heraldry
         // keeps the same aspect on the cloth as the vanilla design does.
         private static Texture2D Paint(EmblemArt symbol, BannerStyle style, Rect uvRect, Texture vanilla)
         {
-            var tint = style.Color * style.Brightness;
-            tint.a = 1f;
             float regionAspect = vanilla.height * uvRect.height / Mathf.Max(1f, vanilla.width * uvRect.width);
-            int width = Mathf.Clamp(Mathf.RoundToInt(vanilla.width * uvRect.width * ResolutionScale), MinDesignWidth, MaxDesignWidth);            int height = Mathf.Clamp(Mathf.RoundToInt(width * regionAspect), 1, 4096);
+            int width = Mathf.Clamp(Mathf.RoundToInt(vanilla.width * uvRect.width * ResolutionScale), MinDesignWidth, MaxDesignWidth);
+            int height = Mathf.Clamp(Mathf.RoundToInt(width * regionAspect), 1, 4096);
 
-            // Transparent pixels still carry the tint, so filtering at the clipped edge doesn't darken it.
-            var clear = (Color32)new Color(tint.r, tint.g, tint.b, 0f);
-            var design = new Color32[width * height];
-            for (int i = 0; i < design.Length; i++) design[i] = clear;
-
+            var coverage = new float[width * height];
             float scale = style.Width * width * 2f / symbol.Width;
-            Stamp(design, width, height, symbol, scale, SymbolCenterFromTop * height, tint);
-            return BuildAtlas(design, width, height, uvRect);
+            Stamp(coverage, width, height, symbol, scale, SymbolCenterFromTop * height);
+            return BuildAtlas(Fill(coverage, width, height, style), width, height, uvRect);
+        }
+
+        // Colours the shape by its distance from the cloth's centre line (the design's right edge), so
+        // striped banners can counterchange it. Transparent pixels still carry their column's colour, so
+        // filtering at the clipped edge doesn't darken it.
+        private static Color32[] Fill(float[] coverage, int width, int height, BannerStyle style)
+        {
+            var design = new Color32[coverage.Length];
+            for (int x = 0; x < width; x++)
+            {
+                var tint = style.ColorAt((width - (x + 0.5f)) / width);
+                for (int y = 0; y < height; y++)
+                {
+                    int i = y * width + x;
+                    var ink = tint;
+                    ink.a = coverage[i];
+                    design[i] = ink;
+                }
+            }
+            return design;
         }
 
         // Draws the left half of the art centred on the design's right edge, so the mirrored cloth shows
         // it whole. Asymmetric art comes out symmetric: its left half twice. Only the art's alpha is used:
         // its grey shading is a baked-in bevel that made the symbols look like metal plates, and the
         // symbol should read as flat embroidery in the banner's colour.
-        private static void Stamp(Color32[] design, int width, int height, EmblemArt art, float scale, float centerRow, Color tint)
+        private static void Stamp(float[] coverage, int width, int height, EmblemArt art, float scale, float centerRow)
         {
             float halfHeight = art.Height * scale * 0.5f;
             int rowMin = Mathf.Max(0, Mathf.FloorToInt(centerRow - halfHeight));
@@ -119,10 +134,7 @@ namespace Heraldry
                     float fromCentre = width - (x + 0.5f);
                     var source = art.Sample(art.Axis - fromCentre / scale, sy);
                     if (source.a <= 0f) continue;
-
-                    var ink = tint;
-                    ink.a = source.a;
-                    design[y * width + x] = ink;
+                    coverage[y * width + x] = source.a;
                 }
             }
         }

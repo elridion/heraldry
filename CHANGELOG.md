@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1
+
+- The gold symbol on the blue and green banners now matches each banner's gold embroidery instead
+  of looking olive green, and is a little smaller so it clears the scrollwork.
+- On the striped banners the symbol is counterchanged: in the stripe colour over the white, and in
+  the banner's white over the stripes, so it reads across the whole banner.
+- Players on 0.3.0 and 0.3.1 can still play together; only the look of the symbols differs.
+
 ## 0.3.0
 
 - 22 new symbols, numbered 138 to 159: gems (diamond ring, cut diamond, topaz), a sun cross, a
