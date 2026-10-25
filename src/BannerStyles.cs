@@ -12,10 +12,15 @@ namespace Heraldry
     /// </summary>
     internal static class BannerStyles
     {
-        // Symbol width as a share of the whole cloth width.
+        // Symbol width as a share of the whole cloth width. Each fits the widest shape inside the banner's
+        // side trim, as measured on the vanilla cloth textures, with the gap found right on the blue and
+        // green banners in game (about 1.7 texels). The trim limits it, never the top or bottom ornaments.
+        // Black and off-white banners: straight frame lines about 15 texels from the centre line.
         private const float NormalWidth = 0.68f;
-        // The gold scrollwork of the blue and green banners reaches further in than the other trims.
+        // The gold scrollwork of the blue and green banners reaches in to about 13 texels.
         private const float ScrollworkWidth = 0.58f;
+        // The wavy trims and the chain of the red, yellow, purple and orange banners start at about 16.
+        private const float NarrowTrimWidth = 0.73f;
         // Widths are of the symbol image, whose shape spans at most 80% of it (tools/make_symbols.ps1),
         // so the image may be wider than the cloth: at 1.05 the widest shapes still clear the edges.
         private const float LargeWidth = 1.05f;
@@ -50,15 +55,15 @@ namespace Heraldry
             { "piece_banner02", new BannerStyle(s_blueBannerGold, ScrollworkWidth) }, // blue, gold scrollwork
             { "piece_banner03", new BannerStyle(s_stripeRed, LargeWidth, // white with red stripes
                 new Band(StripeInner, s_redStripedWhite), new Band(StripeOuter, s_stripeRed)) },
-            { "piece_banner04", new BannerStyle(s_white, NormalWidth) }, // dark red, white chain trim
+            { "piece_banner04", new BannerStyle(s_white, NarrowTrimWidth) }, // dark red, white chain trim
             { "piece_banner05", new BannerStyle(s_greenBannerGold, ScrollworkWidth) }, // green, gold scrollwork
             { "piece_banner06", new BannerStyle(s_stripeRed, LargeWidth, // blue, red and white stripes
                 new Band(StripeInner, s_tricolourWhite)) },
             { "piece_banner07", new BannerStyle(s_stripeBlue, LargeWidth, // white with light-blue stripes
                 new Band(StripeInner, s_blueStripedWhite), new Band(StripeOuter, s_stripeBlue)) },
-            { "piece_banner08", new BannerStyle(s_black, NormalWidth) }, // yellow, dark gold trim
-            { "piece_banner09", new BannerStyle(s_white, NormalWidth) }, // purple, white wavy trim
-            { "piece_banner10", new BannerStyle(s_white, NormalWidth) }, // orange, light gold wavy trim
+            { "piece_banner08", new BannerStyle(s_black, NarrowTrimWidth) }, // yellow, dark gold trim
+            { "piece_banner09", new BannerStyle(s_white, NarrowTrimWidth) }, // purple, white wavy trim
+            { "piece_banner10", new BannerStyle(s_white, NarrowTrimWidth) }, // orange, light gold wavy trim
             { "piece_banner11", new BannerStyle(s_black, NormalWidth) }, // off-white, grey knotwork
         };
 

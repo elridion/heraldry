@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.2
+
+- The symbol is larger on the red, yellow, purple and orange banners, whose trim leaves more room;
+  every trimmed banner now keeps the same gap between symbol and trim.
+- Players on 0.3.x can still play together.
+
 ## 0.3.1
 
 - The gold symbol on the blue and green banners now matches each banner's gold embroidery instead
