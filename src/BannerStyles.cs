@@ -19,8 +19,8 @@ namespace Heraldry
         // The blue banner's darker cloth swallows a dimmed gold, so it gets a brighter symbol; on the
         // green banner gold looks dull at normal brightness but glares at the blue banner's.
         public const float NormalBrightness = 0.7f;
-        private const float MediumBrightness = 0.8f;
-        private const float BrightBrightness = 0.9f;
+        private const float MediumBrightness = 0.85f;
+        private const float BrightBrightness = 0.95f;
 
         private static readonly Color s_white = new Color32(242, 240, 234, 255);
         private static readonly Color s_gold = new Color32(214, 170, 74, 255);
