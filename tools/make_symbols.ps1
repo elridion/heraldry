@@ -6,6 +6,11 @@
 # visual size. The order of $Symbols is the symbol id players type: never reorder or remove entries
 # once released, only append.
 #
+# An entry written 'pair:name' is drawn as two figures facing each other: the icon is shrunk into
+# the left half, short of the centre line, and mirrored onto the right. That is how side-on beasts
+# (ravens, dragons, horses) survive the banner's mirror instead of becoming two-headed. 'pair-flip:'
+# flips the icon first, so the figures face away from each other.
+#
 # Usage (from the repo root, Windows PowerShell): powershell -File tools/make_symbols.ps1
 
 param(
@@ -63,7 +68,18 @@ $Symbols = @(
     # Wings
     'angel-wings', 'winged-emblem', 'steelwing-emblem',
     # Banners
-    'knight-banner'
+    'knight-banner',
+    # Jewelry and treasure
+    'big-diamond-ring', 'cut-diamond', 'topaz',
+    # Norse and Valheim
+    'abstract-030', 'rock-golem', 'troll', 'evil-tree', 'frog',
+    # Pairs
+    'pair:raven', 'pair:lorc/dragon-head', 'pair:sea-dragon', 'pair:delapouite/horse-head', 'pair:goat',
+    'pair:battle-axe', 'pair:griffin-symbol', 'pair:salmon',
+    # Craft and places
+    'barrel', 'mushroom', 'amphora',
+    # Signs and devices
+    'laurels', 'spades', 'hood'
 )
 
 if (-not (Test-Path $Archive)) {
@@ -76,36 +92,76 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
 using System; using System.Drawing; using System.Drawing.Drawing2D; using System.Drawing.Imaging; using System.IO;
 public static class SymbolPrep {
+    // Gap between a pair's figures and the centre line, as a fraction of the canvas.
+    const double PairGap = 0.02;
+
     // Crops to pixels with alpha, then draws the crop centred on a transparent square canvas with its
     // larger side spanning fill of the canvas.
     public static void Make(Stream png, string outPath, int size, double fill) {
         using (var src = new Bitmap(png)) {
-            int minX = src.Width, minY = src.Height, maxX = -1, maxY = -1;
-            var data = src.LockBits(new Rectangle(0, 0, src.Width, src.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
-            var px = new int[src.Width * src.Height];
-            System.Runtime.InteropServices.Marshal.Copy(data.Scan0, px, 0, px.Length);
-            src.UnlockBits(data);
-            for (int y = 0; y < src.Height; y++)
-                for (int x = 0; x < src.Width; x++)
-                    if (((px[y * src.Width + x] >> 24) & 255) > 0) {
-                        if (x < minX) minX = x; if (x > maxX) maxX = x;
-                        if (y < minY) minY = y; if (y > maxY) maxY = y;
-                    }
-            if (maxX < 0) throw new Exception("empty icon");
-            int w = maxX - minX + 1, h = maxY - minY + 1;
-            double scale = fill * size / Math.Max(w, h);
-            float dw = (float)(w * scale), dh = (float)(h * scale);
-            using (var dst = new Bitmap(size, size, PixelFormat.Format32bppArgb))
-            using (var g = Graphics.FromImage(dst)) {
-                g.Clear(Color.Transparent);
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                g.CompositingQuality = CompositingQuality.HighQuality;
-                g.DrawImage(src, new RectangleF((size - dw) / 2f, (size - dh) / 2f, dw, dh),
-                    new RectangleF(minX, minY, w, h), GraphicsUnit.Pixel);
+            var crop = Crop(src);
+            double scale = fill * size / Math.Max(crop.Width, crop.Height);
+            float dw = (float)(crop.Width * scale), dh = (float)(crop.Height * scale);
+            using (var dst = new Bitmap(size, size, PixelFormat.Format32bppArgb)) {
+                using (var g = Canvas(dst))
+                    g.DrawImage(src, new RectangleF((size - dw) / 2f, (size - dh) / 2f, dw, dh), crop, GraphicsUnit.Pixel);
                 dst.Save(outPath, ImageFormat.Png);
             }
         }
+    }
+
+    // Draws the crop into the left half, its right edge PairGap short of the centre line, then mirrors
+    // that half onto the right so the image is exactly symmetric. The pair as a whole spans fill of the
+    // canvas, so it matches the size of single symbols.
+    public static void MakePair(Stream png, string outPath, int size, double fill, bool flip) {
+        using (var src = new Bitmap(png)) {
+            var crop = Crop(src);
+            double boxW = size * (fill / 2 - PairGap), boxH = size * fill;
+            double scale = Math.Min(boxW / crop.Width, boxH / crop.Height);
+            float dw = (float)(crop.Width * scale), dh = (float)(crop.Height * scale);
+            float x = (float)(size * (0.5 - PairGap)) - dw, y = (size - dh) / 2f;
+            using (var dst = new Bitmap(size, size, PixelFormat.Format32bppArgb)) {
+                using (var g = Canvas(dst))
+                    g.DrawImage(src, flip ? new RectangleF(x + dw, y, -dw, dh) : new RectangleF(x, y, dw, dh), crop, GraphicsUnit.Pixel);
+                // Copy pixels rather than drawing a flipped copy over the top: blending would round the
+                // two halves differently.
+                var data = dst.LockBits(new Rectangle(0, 0, size, size), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+                var px = new int[size * size];
+                System.Runtime.InteropServices.Marshal.Copy(data.Scan0, px, 0, px.Length);
+                for (int row = 0; row < size; row++)
+                    for (int col = size / 2; col < size; col++)
+                        px[row * size + col] = px[row * size + size - 1 - col];
+                System.Runtime.InteropServices.Marshal.Copy(px, 0, data.Scan0, px.Length);
+                dst.UnlockBits(data);
+                dst.Save(outPath, ImageFormat.Png);
+            }
+        }
+    }
+
+    // The bounding box of the pixels with alpha.
+    static RectangleF Crop(Bitmap src) {
+        int minX = src.Width, minY = src.Height, maxX = -1, maxY = -1;
+        var data = src.LockBits(new Rectangle(0, 0, src.Width, src.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+        var px = new int[src.Width * src.Height];
+        System.Runtime.InteropServices.Marshal.Copy(data.Scan0, px, 0, px.Length);
+        src.UnlockBits(data);
+        for (int y = 0; y < src.Height; y++)
+            for (int x = 0; x < src.Width; x++)
+                if (((px[y * src.Width + x] >> 24) & 255) > 0) {
+                    if (x < minX) minX = x; if (x > maxX) maxX = x;
+                    if (y < minY) minY = y; if (y > maxY) maxY = y;
+                }
+        if (maxX < 0) throw new Exception("empty icon");
+        return new RectangleF(minX, minY, maxX - minX + 1, maxY - minY + 1);
+    }
+
+    static Graphics Canvas(Bitmap dst) {
+        var g = Graphics.FromImage(dst);
+        g.Clear(Color.Transparent);
+        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+        g.CompositingQuality = CompositingQuality.HighQuality;
+        return g;
     }
 }
 '@
@@ -128,14 +184,22 @@ try {
     $rows = @('id,name,author')
     for ($id = 0; $id -lt $Symbols.Count; $id++) {
         $spec = $Symbols[$id]
+        $layout = ''
+        if ($spec -match '^(pair|pair-flip):(.+)$') { $layout = $Matches[1]; $spec = $Matches[2] }
         $found = @($entries[$spec])
         if ($found.Count -eq 0) { throw "Icon '$spec' not in the archive" }
         if ($found.Count -gt 1) { throw "Icon '$spec' exists from several authors ($(($found | ForEach-Object { $_.Author }) -join ', ')); write it as 'author/name'" }
         $item = $found[0]
         $name = $item.Name
+        $outPath = Join-Path (Resolve-Path $outDir) ('emblem_{0:D2}.png' -f $id)
         $stream = $item.Entry.Open()
         try {
-            [SymbolPrep]::Make($stream, (Join-Path (Resolve-Path $outDir) ('emblem_{0:D2}.png' -f $id)), $Size, $Fill)
+            if ($layout) {
+                [SymbolPrep]::MakePair($stream, $outPath, $Size, $Fill, $layout -eq 'pair-flip')
+                $name = "${layout}:$name"
+            } else {
+                [SymbolPrep]::Make($stream, $outPath, $Size, $Fill)
+            }
         } finally { $stream.Dispose() }
         $rows += "$id,$name,$($item.Author)"
     }

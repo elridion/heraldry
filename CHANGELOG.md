@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- 22 new symbols, numbered 138 to 159: gems (diamond ring, cut diamond, topaz), a sun cross, a
+  stone golem, a troll, the Elder, a swamp frog, pairs of ravens, dragons, sea serpents, horses,
+  goats, axes, griffins and salmon, a barrel, a mushroom, an amphora, laurels, spades and a hood.
+  Symbols 0 to 137 are unchanged.
+
 ## 0.2.3
 
 - Symbol 84 is now a bridge instead of the black hand shield. Banners already set to 84 show the
