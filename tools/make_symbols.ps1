@@ -44,7 +44,8 @@ $Symbols = @(
     'daggers', 'crossed-bones',
     # Shields
     'viking-shield', 'templar-shield', 'heart-shield', 'winged-shield', 'cross-shield', 'rosa-shield',
-    'trident-shield', 'black-hand-shield', 'layered-armor',
+    # 84 was 'black-hand-shield' until 0.2.2.
+    'trident-shield', 'black-bridge', 'layered-armor',
     # Heraldic charges
     'fleur-de-lys', 'trefoil-lily', 'ermine', 'scallop', 'iron-cross', 'hell-crosses', 'jerusalem-cross',
     'camargue-cross', 'gothic-cross', 'sbed/clover', 'clover-spiked', 'clubs',
