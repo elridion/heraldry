@@ -1,11 +1,13 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
 
 - 22 new symbols, numbered 138 to 159: gems (diamond ring, cut diamond, topaz), a sun cross, a
   stone golem, a troll, the Elder, a swamp frog, pairs of ravens, dragons, sea serpents, horses,
   goats, axes, griffins and salmon, a barrel, a mushroom, an amphora, laurels, spades and a hood.
   Symbols 0 to 137 are unchanged.
+- The mod page shows every symbol with its number.
+- Players on 0.2.x and 0.3.0 can't play together, so everyone sees the same symbols.
 
 ## 0.2.3
 

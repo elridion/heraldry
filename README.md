@@ -28,6 +28,8 @@ The build touches nothing outside the repo. To test in game, install the zip wit
 | `src/` | Plugin source: banner pieces, banner component, emblem painting, text box patch |
 | `assets/emblems/` | Emblem symbol images, embedded in the DLL |
 | `package/` | Mod page README and icon shipped in the package |
+| `tools/` | Generators for the symbols, the mod icon and the symbol overview image |
+| `screenshots/symbols.png` | Numbered symbol overview shown on the mod page |
 
 No Unity project or asset bundles: banner textures are painted at runtime.
 

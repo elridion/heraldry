@@ -19,6 +19,8 @@ shields, heraldic charges, gems, plants, stars, ships and more. The banner is mi
 middle, so every symbol is symmetric; side-on creatures such as ravens, dragons and horses come as
 a pair facing each other.
 
+![All symbols with their numbers](https://raw.githubusercontent.com/elridion/heraldry/main/screenshots/symbols.png)
+
 | Banner | Symbol |
 | --- | --- |
 | Black, Red, Purple, Orange | White |

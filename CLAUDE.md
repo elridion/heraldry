@@ -33,6 +33,7 @@ hold more Valheim lessons; read it when a pattern here is missing.
 | `assets/emblems/` | Emblem art: `symbols/emblem_NN.png` and `symbols.csv` (ids, icon names, authors) |
 | `tools/make_symbols.ps1` | Generates the symbols from the game-icons.net archive; its list order is the symbol ids |
 | `tools/make_icon.ps1` | Generates `package/icon.png` from game-icons.net "knight-banner" (same archive) |
+| `tools/make_symbol_sheet.ps1` | Generates `screenshots/symbols.png`, the numbered symbol overview on the mod page; rerun after adding symbols |
 | `package/README.md`, `package/icon.png` | Mod page and icon shipped in the package |
 | `.github/workflows/build.yml` | CI: builds the package on push/PR, GitHub release and Hexium upload on `v*` tags |
 
@@ -77,7 +78,9 @@ behaviour works on the strength of a successful build.
 - **Dedicated servers have no graphics device.** `EmblemPainter.CanPaint` gates all texture work; the
   ZDO text still syncs.
 - **Docs follow code.** The symbol range and the per-banner symbol table in `package/README.md` stay
-  in sync with the art and `BannerStyles` in the same change.
+  in sync with the art and `BannerStyles` in the same change, and `screenshots/symbols.png` is
+  regenerated whenever symbols change. The mod page loads it from `main` on
+  raw.githubusercontent.com, so it only shows new symbols once they are merged.
 
 ## Art and licensing
 
