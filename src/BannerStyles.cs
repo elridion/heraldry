@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Heraldry
 {
     /// <summary>
-    /// How the symbol looks on each vanilla banner: its colour (white, gold, black or navy, picked by eye per
+    /// How the symbol looks on each vanilla banner: its colour (white, gold or black, picked by eye per
     /// banner), brightness and width. Banners with embroidered trim along the edges keep the symbol narrow
     /// enough to clear it; the striped banners have no trim and take a larger symbol.
     /// </summary>
@@ -19,18 +19,14 @@ namespace Heraldry
         // The blue banner's darker cloth swallows a dimmed gold, so it gets a brighter symbol; on the
         // green banner gold looks dull at normal brightness but glares at the blue banner's.
         public const float NormalBrightness = 0.7f;
-        private const float MediumBrightness = 0.85f;
-        private const float BrightBrightness = 0.95f;
+        private const float MediumBrightness = 0.8f;
+        private const float BrightBrightness = 0.9f;
 
         private static readonly Color s_white = new Color32(242, 240, 234, 255);
-        // Matched to the vanilla gold embroidery on the blue and green banners: a paler, bluer gold
-        // looked olive green next to it in game.
-        private static readonly Color s_gold = new Color32(240, 154, 40, 255);
+        private static readonly Color s_gold = new Color32(214, 170, 74, 255);
         // Dark charcoal rather than black: brightness scales it down further, and pure black read as a
         // hole in the cloth.
         private static readonly Color s_black = new Color32(64, 58, 54, 255);
-        // Matches the light-blue stripes; black read too heavy there.
-        private static readonly Color s_navy = new Color32(46, 62, 110, 255);
 
         // Keyed by vanilla prefab name.
         private static readonly Dictionary<string, BannerStyle> s_styles = new Dictionary<string, BannerStyle>
@@ -40,9 +36,8 @@ namespace Heraldry
             { "piece_banner03", new BannerStyle(s_black, LargeWidth) },  // white with red stripes
             { "piece_banner04", new BannerStyle(s_white, NormalWidth) }, // dark red, white chain trim
             { "piece_banner05", new BannerStyle(s_gold, NormalWidth, MediumBrightness) }, // green, gold scrollwork
-            // Black vanished on the dark blue stripes; gold reads on blue and red, like on the blue banner.
-            { "piece_banner06", new BannerStyle(s_gold, LargeWidth, BrightBrightness) }, // blue, red and white stripes
-            { "piece_banner07", new BannerStyle(s_navy, LargeWidth) },  // white with light-blue stripes
+            { "piece_banner06", new BannerStyle(s_black, LargeWidth) },  // blue, red and white stripes
+            { "piece_banner07", new BannerStyle(s_black, LargeWidth) },  // white with light-blue stripes
             { "piece_banner08", new BannerStyle(s_black, NormalWidth) }, // yellow, dark gold trim
             { "piece_banner09", new BannerStyle(s_white, NormalWidth) }, // purple, white wavy trim
             { "piece_banner10", new BannerStyle(s_white, NormalWidth) }, // orange, light gold wavy trim

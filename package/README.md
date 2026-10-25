@@ -26,9 +26,7 @@ a pair facing each other.
 | Black, Red, Purple, Orange | White |
 | Blue, Green | Gold |
 | Yellow, White | Black |
-| Red-striped | Black, larger (no edge trim) |
-| Blue-striped | Navy, larger (no edge trim) |
-| Blue-red-white-striped | Gold, larger (no edge trim) |
+| Red-striped, blue-striped, blue-red-white-striped | Black, larger (no edge trim) |
 
 ## Requirements
 
