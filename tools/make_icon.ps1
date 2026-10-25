@@ -1,74 +1,107 @@
-# Builds package/icon.png (256 x 256, the Thunderstore/Hexium mod icon): a red banner hanging from a
-# wooden crossbar, with one of the mod's own symbols on it.
+# Builds package/icon.png (256 x 256, the Thunderstore/Hexium mod icon) from the game-icons.net
+# "knight-banner" icon by Delapouite (CC BY 3.0): a gold banner on a crimson round plate with a gold
+# rim. Spearbreaker and Warden use the same plate in their own colours, so the mods read as a set.
 #
-# Usage (from the repo root, Windows PowerShell): powershell -File tools/make_icon.ps1 [-Symbol 57]
+# The archive is the one tools/make_symbols.ps1 uses; it is downloaded when missing.
+#
+# Usage (from the repo root, Windows PowerShell): powershell -File tools/make_icon.ps1
 
 param(
-    [int]$Symbol = 57,
+    [string]$Archive = 'assets/emblems/source/game-icons.net.png.zip',
+    [string]$Icon = 'delapouite/knight-banner',
     [string]$Out = 'package/icon.png'
 )
 
 $ErrorActionPreference = 'Stop'
 Set-Location (Split-Path $PSScriptRoot)
+
+if (-not (Test-Path $Archive)) {
+    New-Item -ItemType Directory -Force (Split-Path $Archive) | Out-Null
+    Invoke-WebRequest 'https://game-icons.net/archives/png/zip/ffffff/transparent/game-icons.net.png.zip' -UseBasicParsing -OutFile $Archive
+}
+
 Add-Type -AssemblyName System.Drawing
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition @'
+using System; using System.Drawing; using System.Drawing.Drawing2D; using System.Drawing.Imaging;
+public static class IconPaint {
+    // Draws the white glyph as gold: a vertical gradient through the glyph's alpha, over a dark
+    // outline grown from the same alpha.
+    public static Bitmap Glyph(Bitmap src, int size, double fill, int outline) {
+        var dst = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+        int inner = (int)Math.Round(size * fill);
+        int off = (size - inner) / 2;
+        var mask = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+        using (var g = Graphics.FromImage(mask)) {
+            g.Clear(Color.Transparent);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.DrawImage(src, new Rectangle(off, off, inner, inner));
+        }
+        var a = new byte[size * size];
+        for (int y = 0; y < size; y++)
+            for (int x = 0; x < size; x++)
+                a[y * size + x] = mask.GetPixel(x, y).A;
+        mask.Dispose();
 
-$size = 256
-$icon = New-Object System.Drawing.Bitmap $size, $size
-$g = [System.Drawing.Graphics]::FromImage($icon)
-$g.SmoothingMode = 'AntiAlias'
-$g.InterpolationMode = 'HighQualityBicubic'
-$g.PixelOffsetMode = 'HighQuality'
-$g.Clear([System.Drawing.Color]::Transparent)
+        Color top = Color.FromArgb(250, 214, 120), bottom = Color.FromArgb(190, 130, 40), edge = Color.FromArgb(40, 10, 10);
+        for (int y = 0; y < size; y++) {
+            double t = (double)y / (size - 1);
+            for (int x = 0; x < size; x++) {
+                int ring = 0;
+                for (int dy = -outline; dy <= outline; dy++)
+                    for (int dx = -outline; dx <= outline; dx++) {
+                        if (dx * dx + dy * dy > outline * outline) continue;
+                        int sx = x + dx, sy = y + dy;
+                        if (sx < 0 || sy < 0 || sx >= size || sy >= size) continue;
+                        ring = Math.Max(ring, a[sy * size + sx]);
+                    }
+                int ga = a[y * size + x];
+                double k = ga / 255.0;
+                int r = (int)Math.Round(edge.R * (1 - k) + (top.R * (1 - t) + bottom.R * t) * k);
+                int gg = (int)Math.Round(edge.G * (1 - k) + (top.G * (1 - t) + bottom.G * t) * k);
+                int b = (int)Math.Round(edge.B * (1 - k) + (top.B * (1 - t) + bottom.B * t) * k);
+                dst.SetPixel(x, y, Color.FromArgb(Math.Max(ring, ga), r, gg, b));
+            }
+        }
+        return dst;
+    }
 
-# Cloth: a tall strip ending in a point, like the vanilla banners.
-$left = 58; $right = 198; $top = 26; $shoulder = 206; $tip = 246
-$cloth = New-Object System.Drawing.Drawing2D.GraphicsPath
-$cloth.AddPolygon([System.Drawing.PointF[]]@(
-    (New-Object System.Drawing.PointF $left, $top),
-    (New-Object System.Drawing.PointF $right, $top),
-    (New-Object System.Drawing.PointF $right, $shoulder),
-    (New-Object System.Drawing.PointF (($left + $right) / 2), $tip),
-    (New-Object System.Drawing.PointF $left, $shoulder)))
-$clothBrush = New-Object System.Drawing.Drawing2D.LinearGradientBrush (
-    (New-Object System.Drawing.Point $left, 0), (New-Object System.Drawing.Point $right, 0),
-    [System.Drawing.Color]::FromArgb(255, 112, 22, 22), [System.Drawing.Color]::FromArgb(255, 112, 22, 22))
-$blend = New-Object System.Drawing.Drawing2D.ColorBlend 3
-$blend.Colors = @([System.Drawing.Color]::FromArgb(255, 96, 18, 18), [System.Drawing.Color]::FromArgb(255, 150, 32, 30), [System.Drawing.Color]::FromArgb(255, 96, 18, 18))
-$blend.Positions = @(0.0, 0.5, 1.0)
-$clothBrush.InterpolationColors = $blend
-$g.FillPath($clothBrush, $cloth)
+    // The mod icon: the glyph on a crimson round plate with a gold rim.
+    public static Bitmap ModIcon(Bitmap glyph, int size) {
+        var dst = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+        using (var g = Graphics.FromImage(dst)) {
+            g.Clear(Color.Transparent);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            using (var path = new GraphicsPath()) {
+                path.AddEllipse(6, 6, size - 12, size - 12);
+                using (var plate = new PathGradientBrush(path) { CenterColor = Color.FromArgb(255, 130, 28, 26), SurroundColors = new[] { Color.FromArgb(255, 60, 12, 12) } })
+                    g.FillPath(plate, path);
+                using (var rim = new Pen(Color.FromArgb(255, 200, 150, 60), 7f))
+                    g.DrawEllipse(rim, 9.5f, 9.5f, size - 19, size - 19);
+            }
+            g.DrawImage(glyph, new Rectangle(0, 0, size, size));
+        }
+        return dst;
+    }
+}
+'@
 
-# Trim: a thin light line inset along the cloth's edge, as on the trimmed vanilla banners.
-$inset = 9
-$trim = New-Object System.Drawing.Drawing2D.GraphicsPath
-$trim.AddPolygon([System.Drawing.PointF[]]@(
-    (New-Object System.Drawing.PointF ($left + $inset), ($top + 14)),
-    (New-Object System.Drawing.PointF ($right - $inset), ($top + 14)),
-    (New-Object System.Drawing.PointF ($right - $inset), ($shoulder - 3)),
-    (New-Object System.Drawing.PointF (($left + $right) / 2), ($tip - 13)),
-    (New-Object System.Drawing.PointF ($left + $inset), ($shoulder - 3))))
-$g.DrawPath((New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(200, 230, 222, 205)), 2.5), $trim)
+$zip = [IO.Compression.ZipFile]::OpenRead((Resolve-Path $Archive))
+try {
+    $entry = $zip.GetEntry("icons/ffffff/transparent/1x1/$Icon.png")
+    if (-not $entry) { throw "Icon '$Icon' not in the archive" }
+    $stream = $entry.Open()
+    try { $src = New-Object System.Drawing.Bitmap $stream } finally { $stream.Dispose() }
+} finally {
+    $zip.Dispose()
+}
 
-# Symbol, tinted off-white like the in-game white symbols.
-$art = [System.Drawing.Image]::FromFile((Resolve-Path ('assets/emblems/symbols/emblem_{0:D2}.png' -f $Symbol)))
-$matrix = New-Object System.Drawing.Imaging.ColorMatrix
-$matrix.Matrix00 = 236 / 255; $matrix.Matrix11 = 230 / 255; $matrix.Matrix22 = 214 / 255
-$attributes = New-Object System.Drawing.Imaging.ImageAttributes
-$attributes.SetColorMatrix($matrix)
-$symbolSize = 118
-$sx = [int](($left + $right - $symbolSize) / 2); $sy = 62
-$g.DrawImage($art, (New-Object System.Drawing.Rectangle $sx, $sy, $symbolSize, $symbolSize), 0, 0, $art.Width, $art.Height, 'Pixel', $attributes)
-$art.Dispose()
+$glyph = [IconPaint]::Glyph($src, 256, 0.62, 6)
+$mod = [IconPaint]::ModIcon($glyph, 256)
+$mod.Save((Join-Path (Get-Location) $Out), [System.Drawing.Imaging.ImageFormat]::Png)
 
-# Crossbar with darker end caps.
-$wood = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(255, 110, 76, 46))
-$woodDark = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(255, 62, 42, 26))
-$g.FillRectangle($wood, 34, 14, 188, 16)
-$g.FillRectangle($woodDark, 34, 26, 188, 4)
-$g.FillEllipse($woodDark, 26, 12, 20, 20)
-$g.FillEllipse($woodDark, 210, 12, 20, 20)
-
-$g.Dispose()
-$icon.Save((Join-Path (Get-Location) $Out), [System.Drawing.Imaging.ImageFormat]::Png)
-$icon.Dispose()
-Write-Host "Wrote $Out with symbol $Symbol"
+$glyph.Dispose(); $mod.Dispose(); $src.Dispose()
+Write-Host "Wrote $Out from $Icon"

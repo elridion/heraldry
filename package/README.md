@@ -48,6 +48,8 @@ same version to connect.
   Asercion, Cathelineau, DarkZaitzev, Kier Heyl, Pepijn Poolman, Skoll and Sparker, licensed under
   [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). They are cropped, resized and
   recoloured for the banners.
+- Mod icon: "Knight banner" by Delapouite from [game-icons.net](https://game-icons.net), licensed
+  under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Recoloured and outlined.
 
 ## Source and issues
 

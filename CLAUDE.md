@@ -32,6 +32,7 @@ hold more Valheim lessons; read it when a pattern here is missing.
 | `src/TextInputPatches.cs` | Feeds the open text box's text to the banner for the live preview |
 | `assets/emblems/` | Emblem art: `symbols/emblem_NN.png` and `symbols.csv` (ids, icon names, authors) |
 | `tools/make_symbols.ps1` | Generates the symbols from the game-icons.net archive; its list order is the symbol ids |
+| `tools/make_icon.ps1` | Generates `package/icon.png` from game-icons.net "knight-banner" (same archive) |
 | `package/README.md`, `package/icon.png` | Mod page and icon shipped in the package |
 | `.github/workflows/build.yml` | CI: builds the package on push/PR, GitHub release and Hexium upload on `v*` tags |
 
