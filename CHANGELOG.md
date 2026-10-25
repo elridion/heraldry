@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3
+
+- Symbol 84 is now a bridge instead of the black hand shield. Banners already set to 84 show the
+  bridge.
+- New mod icon: a gold banner on a crimson plate.
+
 ## 0.2.2
 
 - Fixed banner cloth turning magenta in the falling pieces when a banner with a symbol is torn
