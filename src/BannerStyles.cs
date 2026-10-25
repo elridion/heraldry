@@ -23,7 +23,9 @@ namespace Heraldry
         private const float BrightBrightness = 0.95f;
 
         private static readonly Color s_white = new Color32(242, 240, 234, 255);
-        private static readonly Color s_gold = new Color32(214, 170, 74, 255);
+        // Matched to the vanilla gold embroidery on the blue and green banners: a paler, bluer gold
+        // looked olive green next to it in game.
+        private static readonly Color s_gold = new Color32(240, 154, 40, 255);
         // Dark charcoal rather than black: brightness scales it down further, and pure black read as a
         // hole in the cloth.
         private static readonly Color s_black = new Color32(64, 58, 54, 255);
