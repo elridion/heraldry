@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Välj emblem",
+  "heraldry_input_topic": "Emblemsymbol, t.ex. 42",
+  "heraldry_symbol": "Symbol",
+  "heraldry_no_emblem": "Inget emblem",
+  "heraldry_invalid": "Okänd symbol. Symbolerna är 0-$1."
+}

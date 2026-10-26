@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- The banner texts are translated into every language Valheim offers except Abenaki, and follow
+  the game's language setting.
+- Players on 0.3.x can still play together.
+
 ## 0.3.3
 
 - Bug reports and feedback now go to the #heraldry channel on Discord: https://discord.gg/GUTMJQa6CQ

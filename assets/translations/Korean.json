@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "문장 설정",
+  "heraldry_input_topic": "문장 기호 (예: 42)",
+  "heraldry_symbol": "기호",
+  "heraldry_no_emblem": "문장 없음",
+  "heraldry_invalid": "알 수 없는 기호입니다. 기호는 0-$1입니다."
+}

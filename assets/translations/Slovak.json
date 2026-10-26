@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Nastaviť znak",
+  "heraldry_input_topic": "Symbol znaku, napr. 42",
+  "heraldry_symbol": "Symbol",
+  "heraldry_no_emblem": "Bez znaku",
+  "heraldry_invalid": "Neznámy symbol. Symboly sú 0-$1."
+}

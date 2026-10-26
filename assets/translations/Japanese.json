@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "紋章を設定",
+  "heraldry_input_topic": "紋章のシンボル（例: 42）",
+  "heraldry_symbol": "シンボル",
+  "heraldry_no_emblem": "紋章なし",
+  "heraldry_invalid": "不明なシンボルです。シンボルは0-$1です。"
+}

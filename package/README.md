@@ -28,6 +28,12 @@ a pair facing each other.
 | Yellow, White | Black |
 | Red-striped, blue-striped, blue-red-white-striped | Counterchanged: stripe colour on the white, white on the stripes; larger (no edge trim) |
 
+## Languages
+
+The banner texts follow the game's language setting, in every language Valheim offers except
+Abenaki, which shows English. The translations have not been checked by native speakers yet;
+corrections are welcome on GitHub (see below).
+
 ## Requirements
 
 - BepInEx for Valheim

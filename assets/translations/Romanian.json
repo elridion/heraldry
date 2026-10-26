@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Alege emblema",
+  "heraldry_input_topic": "Simbolul emblemei, de ex. 42",
+  "heraldry_symbol": "Simbol",
+  "heraldry_no_emblem": "Fără emblemă",
+  "heraldry_invalid": "Simbol necunoscut. Simbolurile sunt 0-$1."
+}

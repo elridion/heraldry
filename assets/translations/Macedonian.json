@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Постави амблем",
+  "heraldry_input_topic": "Симбол на амблемот, на пр. 42",
+  "heraldry_symbol": "Симбол",
+  "heraldry_no_emblem": "Без амблем",
+  "heraldry_invalid": "Непознат симбол. Симболите се 0-$1."
+}

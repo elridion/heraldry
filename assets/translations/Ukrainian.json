@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Задати герб",
+  "heraldry_input_topic": "Символ герба, напр. 42",
+  "heraldry_symbol": "Символ",
+  "heraldry_no_emblem": "Без герба",
+  "heraldry_invalid": "Невідомий символ. Доступні символи 0-$1."
+}

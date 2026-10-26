@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Velja skjaldarmerki",
+  "heraldry_input_topic": "Tákn skjaldarmerkis, t.d. 42",
+  "heraldry_symbol": "Tákn",
+  "heraldry_no_emblem": "Ekkert skjaldarmerki",
+  "heraldry_invalid": "Óþekkt tákn. Táknin eru 0-$1."
+}

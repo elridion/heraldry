@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Nustatyti emblemą",
+  "heraldry_input_topic": "Emblemos simbolis, pvz., 42",
+  "heraldry_symbol": "Simbolis",
+  "heraldry_no_emblem": "Nėra emblemos",
+  "heraldry_invalid": "Nežinomas simbolis. Simboliai yra 0-$1."
+}

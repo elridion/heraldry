@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Definir emblema",
+  "heraldry_input_topic": "Símbolo do emblema, ex.: 42",
+  "heraldry_symbol": "Símbolo",
+  "heraldry_no_emblem": "Sem emblema",
+  "heraldry_invalid": "Símbolo desconhecido. Os símbolos vão de 0 a $1."
+}

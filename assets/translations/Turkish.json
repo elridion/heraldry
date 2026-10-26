@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Arma belirle",
+  "heraldry_input_topic": "Arma sembolü, örn. 42",
+  "heraldry_symbol": "Sembol",
+  "heraldry_no_emblem": "Arma yok",
+  "heraldry_invalid": "Bilinmeyen sembol. Semboller 0-$1 arasındadır."
+}

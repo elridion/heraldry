@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.IO;
 using BepInEx;
 using HarmonyLib;
 using Jotunn.Managers;
@@ -14,6 +14,8 @@ namespace Heraldry
         public const string PluginGuid = "elridion.heraldry";
         public const string PluginName = "Heraldry";
         public const string PluginVersion = "0.3.3";
+
+        private const string TranslationPrefix = "Heraldry.translations.";
 
         private Harmony _harmony;
 
@@ -32,16 +34,19 @@ namespace Heraldry
             _harmony?.UnpatchSelf();
         }
 
+        // Each embedded assets/translations/<Language>.json is named after a Valheim language. Jotunn
+        // falls back to English for languages and keys without a translation.
         private static void AddLocalizations()
         {
-            LocalizationManager.Instance.GetLocalization().AddTranslation("English", new Dictionary<string, string>
+            var localization = LocalizationManager.Instance.GetLocalization();
+            var assembly = typeof(HeraldryPlugin).Assembly;
+            foreach (string resource in assembly.GetManifestResourceNames())
             {
-                { "heraldry_set_emblem", "Set emblem" },
-                { "heraldry_input_topic", "Emblem symbol, e.g. 42" },
-                { "heraldry_symbol", "Symbol" },
-                { "heraldry_no_emblem", "No emblem" },
-                { "heraldry_invalid", "Unknown symbol. Symbols are 0-$1." },
-            });
+                if (!resource.StartsWith(TranslationPrefix) || !resource.EndsWith(".json")) continue;
+                string language = resource.Substring(TranslationPrefix.Length, resource.Length - TranslationPrefix.Length - ".json".Length);
+                using (var reader = new StreamReader(assembly.GetManifestResourceStream(resource)))
+                    localization.AddJsonFile(language, reader.ReadToEnd());
+            }
         }
     }
 }

@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "कुलचिह्न लगाएँ",
+  "heraldry_input_topic": "कुलचिह्न का प्रतीक, जैसे 42",
+  "heraldry_symbol": "प्रतीक",
+  "heraldry_no_emblem": "कोई कुलचिह्न नहीं",
+  "heraldry_invalid": "अज्ञात प्रतीक। प्रतीक 0-$1 हैं।"
+}

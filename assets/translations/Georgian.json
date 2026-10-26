@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "ემბლემის დაყენება",
+  "heraldry_input_topic": "ემბლემის სიმბოლო, მაგ. 42",
+  "heraldry_symbol": "სიმბოლო",
+  "heraldry_no_emblem": "ემბლემის გარეშე",
+  "heraldry_invalid": "უცნობი სიმბოლო. სიმბოლოებია 0-$1."
+}

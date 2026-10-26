@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Postavi grb",
+  "heraldry_input_topic": "Simbol grba, npr. 42",
+  "heraldry_symbol": "Simbol",
+  "heraldry_no_emblem": "Bez grba",
+  "heraldry_invalid": "Nepoznat simbol. Simboli su 0-$1."
+}

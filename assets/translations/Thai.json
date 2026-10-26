@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "ตั้งตราสัญลักษณ์",
+  "heraldry_input_topic": "สัญลักษณ์ของตรา เช่น 42",
+  "heraldry_symbol": "สัญลักษณ์",
+  "heraldry_no_emblem": "ไม่มีตรา",
+  "heraldry_invalid": "ไม่รู้จักสัญลักษณ์นี้ สัญลักษณ์มีตั้งแต่ 0-$1"
+}

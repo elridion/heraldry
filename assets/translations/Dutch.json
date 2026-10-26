@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Embleem instellen",
+  "heraldry_input_topic": "Embleemsymbool, bijv. 42",
+  "heraldry_symbol": "Symbool",
+  "heraldry_no_emblem": "Geen embleem",
+  "heraldry_invalid": "Onbekend symbool. Symbolen lopen van 0 tot $1."
+}

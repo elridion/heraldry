@@ -1,0 +1,7 @@
+{
+  "heraldry_set_emblem": "Ορισμός εμβλήματος",
+  "heraldry_input_topic": "Σύμβολο εμβλήματος, π.χ. 42",
+  "heraldry_symbol": "Σύμβολο",
+  "heraldry_no_emblem": "Χωρίς έμβλημα",
+  "heraldry_invalid": "Άγνωστο σύμβολο. Τα σύμβολα είναι 0-$1."
+}

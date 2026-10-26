@@ -32,6 +32,12 @@
     <EmbeddedResource Include="assets\emblems\symbols\emblem_*.png" LogicalName="Heraldry.symbol.$([System.String]::Copy('%(Filename)').Replace('emblem_', '')).png" />
   </ItemGroup>
 
+  <!-- Player-facing text, one Jotunn JSON file per Valheim language, loaded by
+       HeraldryPlugin.AddLocalizations as Heraldry.translations.<Language>.json. -->
+  <ItemGroup>
+    <EmbeddedResource Include="assets\translations\*.json" LogicalName="Heraldry.translations.%(Filename)%(Extension)" />
+  </ItemGroup>
+
   <!-- Thunderstore/Hexium package: dotnet build -c Release -t:Package -->
   <PropertyGroup>
     <PackageDescription>Emblems for vanilla banners, as easy as editing a sign.</PackageDescription>
