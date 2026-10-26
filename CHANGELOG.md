@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.3
+
+- Bug reports and feedback now go to the #heraldry channel on Discord: https://discord.gg/GUTMJQa6CQ
+- Players on 0.3.x can still play together.
+
 ## 0.3.2
 
 - The symbol is larger on the red, yellow, purple and orange banners, whose trim leaves more room;
