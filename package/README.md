@@ -59,9 +59,3 @@ same version to connect.
   Speed under CC0. They are cropped, resized, paired and recoloured for the banners.
 - Mod icon: "Knight banner" by Delapouite from [game-icons.net](https://game-icons.net), licensed
   under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Recoloured and outlined.
-
-## Source and issues
-
-Bug reports and feedback: the [#heraldry channel on Discord](https://discord.gg/wqUA7vvvp2).
-
-Source code (MIT license): [github.com/elridion/heraldry](https://github.com/elridion/heraldry).
