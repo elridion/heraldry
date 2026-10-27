@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.5
+
+- Players on 0.3.x can still play together.
+
 ## 0.3.4
 
 - The banner texts are translated into every language Valheim offers except Abenaki, and follow
