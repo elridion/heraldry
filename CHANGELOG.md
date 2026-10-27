@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.4
 
 - The banner texts are translated into every language Valheim offers except Abenaki, and follow
   the game's language setting.

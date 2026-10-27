@@ -13,7 +13,7 @@ namespace Heraldry
     {
         public const string PluginGuid = "elridion.heraldry";
         public const string PluginName = "Heraldry";
-        public const string PluginVersion = "0.3.3";
+        public const string PluginVersion = "0.3.4";
 
         private const string TranslationPrefix = "Heraldry.translations.";
 
