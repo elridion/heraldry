@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- The Discord link now points at the shared server, where #heraldry lives: https://discord.gg/wqUA7vvvp2
+
 ## 0.3.4
 
 - The banner texts are translated into every language Valheim offers except Abenaki, and follow

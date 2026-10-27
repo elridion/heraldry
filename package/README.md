@@ -62,6 +62,6 @@ same version to connect.
 
 ## Source and issues
 
-Bug reports and feedback: the [#heraldry channel on Discord](https://discord.gg/GUTMJQa6CQ).
+Bug reports and feedback: the [#heraldry channel on Discord](https://discord.gg/wqUA7vvvp2).
 
 Source code (MIT license): [github.com/elridion/heraldry](https://github.com/elridion/heraldry).
