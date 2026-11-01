@@ -3,5 +3,6 @@
   "heraldry_input_topic": "纹章符号，例如 42",
   "heraldry_symbol": "符号",
   "heraldry_no_emblem": "无纹章",
-  "heraldry_invalid": "未知符号。符号范围为 0-$1。"
+  "heraldry_invalid": "未知符号。符号范围为 0-$1。",
+  "heraldry_large": "大型"
 }

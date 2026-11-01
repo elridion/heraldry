@@ -6,8 +6,8 @@ namespace Heraldry
 {
     /// <summary>
     /// Gives every vanilla banner an <see cref="EmblemBanner"/>, so banners already built in a world gain
-    /// the emblem too. Nothing else on the vanilla prefab changes: without the mod, the stored symbol is
-    /// ignored and the banner looks vanilla again.
+    /// the emblem too, and a large clone (<see cref="LargeBanners"/>). Nothing else on the vanilla
+    /// prefab changes: without the mod, the stored symbol is ignored and the banner looks vanilla again.
     /// </summary>
     internal static class BannerPieces
     {
@@ -19,6 +19,13 @@ namespace Heraldry
         private static readonly Dictionary<string, BannerInfo> s_banners = new Dictionary<string, BannerInfo>();
 
         public static BannerInfo GetInfo(string prefabName) => s_banners.TryGetValue(prefabName, out var info) ? info : null;
+
+        // A clone of a vanilla banner with the same cloth paints like it: same UVs, style and overlays.
+        public static void Alias(string clonePrefabName, string vanillaPrefabName)
+        {
+            var info = GetInfo(vanillaPrefabName);
+            if (info != null) s_banners[clonePrefabName] = info;
+        }
 
         public static void Register()
         {
@@ -37,6 +44,15 @@ namespace Heraldry
                 catch (System.Exception e)
                 {
                     Jotunn.Logger.LogError($"Failed to add an emblem to {name}: {e}");
+                }
+                // After the emblem, so the clone carries EmblemBanner too.
+                try
+                {
+                    LargeBanners.Add(banner);
+                }
+                catch (System.Exception e)
+                {
+                    Jotunn.Logger.LogError($"Failed to add a large {name}: {e}");
                 }
             }
             if (added == 0) Jotunn.Logger.LogWarning($"No vanilla '{VanillaPrefix}NN' prefabs found; no banners carry emblems.");
@@ -116,7 +132,8 @@ namespace Heraldry
 
     /// <summary>
     /// What painting needs to know about one banner prefab: the UV rect of each cloth renderer, in the
-    /// order <see cref="BannerPieces.FindCloth"/> returns them.
+    /// order <see cref="BannerPieces.FindCloth"/> returns them. Large banners share their vanilla
+    /// banner's info, so <see cref="PrefabName"/> is always the vanilla name.
     /// </summary>
     internal sealed class BannerInfo
     {

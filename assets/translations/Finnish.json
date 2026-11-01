@@ -3,5 +3,6 @@
   "heraldry_input_topic": "Tunnuksen symboli, esim. 42",
   "heraldry_symbol": "Symboli",
   "heraldry_no_emblem": "Ei tunnusta",
-  "heraldry_invalid": "Tuntematon symboli. Symbolit ovat 0-$1."
+  "heraldry_invalid": "Tuntematon symboli. Symbolit ovat 0-$1.",
+  "heraldry_large": "Suuri"
 }

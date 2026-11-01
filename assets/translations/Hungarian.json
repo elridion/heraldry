@@ -3,5 +3,6 @@
   "heraldry_input_topic": "Címerjelkép, pl. 42",
   "heraldry_symbol": "Jelkép",
   "heraldry_no_emblem": "Nincs címer",
-  "heraldry_invalid": "Ismeretlen jelkép. A jelképek: 0-$1."
+  "heraldry_invalid": "Ismeretlen jelkép. A jelképek: 0-$1.",
+  "heraldry_large": "Nagy"
 }

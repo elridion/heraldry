@@ -1,7 +1,7 @@
 # Heraldry
 
 Valheim mod (BepInEx + Jotunn) that lets every vanilla banner carry a guild emblem, chosen like
-writing on a sign. It adds no new pieces.
+writing on a sign. Optionally (off by default) it adds a large, twice-size clone of each banner.
 
 Players: install it from a mod manager. Features and emblem codes are on the mod page, whose source
 is [`package/README.md`](package/README.md).
@@ -25,7 +25,7 @@ The build touches nothing outside the repo. To test in game, install the zip wit
 
 | Path | Purpose |
 | --- | --- |
-| `src/` | Plugin source: banner pieces, banner component, emblem painting, text box patch |
+| `src/` | Plugin source: banner pieces, large banners, banner component, emblem painting, text box patch |
 | `assets/emblems/` | Emblem symbol images, embedded in the DLL |
 | `package/` | Mod page README and icon shipped in the package |
 | `tools/` | Generators for the symbols, the mod icon and the symbol overview image |

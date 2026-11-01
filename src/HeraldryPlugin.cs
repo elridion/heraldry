@@ -1,5 +1,6 @@
 using System.IO;
 using BepInEx;
+using BepInEx.Configuration;
 using HarmonyLib;
 using Jotunn.Managers;
 using Jotunn.Utils;
@@ -17,10 +18,18 @@ namespace Heraldry
 
         private const string TranslationPrefix = "Heraldry.translations.";
 
+        public static ConfigEntry<bool> LargeBanners;
+
         private Harmony _harmony;
 
         private void Awake()
         {
+            LargeBanners = Config.Bind("Pieces", "LargeBanners", false,
+                new ConfigDescription("Offer a large banner, twice the size for twice the materials, next to each vanilla banner in the hammer. " +
+                    "Turning it off only hides them from the hammer; large banners already built stay.",
+                    null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            LargeBanners.SettingChanged += (_, __) => Heraldry.LargeBanners.UpdateEnabled();
+
             EmblemLibrary.Index();
             AddLocalizations();
             PrefabManager.OnVanillaPrefabsAvailable += BannerPieces.Register;

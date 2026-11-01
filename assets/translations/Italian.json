@@ -3,5 +3,6 @@
   "heraldry_input_topic": "Simbolo dell'emblema, ad es. 42",
   "heraldry_symbol": "Simbolo",
   "heraldry_no_emblem": "Nessun emblema",
-  "heraldry_invalid": "Simbolo sconosciuto. I simboli vanno da 0 a $1."
+  "heraldry_invalid": "Simbolo sconosciuto. I simboli vanno da 0 a $1.",
+  "heraldry_large": "Grande"
 }

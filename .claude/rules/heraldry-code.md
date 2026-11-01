@@ -12,6 +12,11 @@ Adds to the workspace-wide `code-style.md` and `valheim-modding.md` in `../.clau
 - `BannerPieces.Register` adds `EmblemBanner` to the vanilla banner prefabs, skips one that already
   has it, and sets each banner up in its own try/catch. Everything needed (cloth, UVs) is checked
   before the component is added, so a failure leaves the vanilla prefab untouched.
+- `LargeBanners.Add` clones each vanilla banner after it got `EmblemBanner`, scales the root by 2,
+  doubles the vanilla `m_resources` read at runtime, and names it `$heraldry_large ` + the vanilla
+  `m_name` (each language's "large" agrees with its vanilla word for banner). The clone keeps the
+  vanilla hammer tab, station and icon. `BannerPieces.Alias` maps the clone to the vanilla
+  `BannerInfo`, so it paints with the vanilla style and shares overlays.
 - Localization keys are `heraldry_*`.
 
 ## Painting

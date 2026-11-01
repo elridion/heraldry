@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0
+
+- Optional large banners: a "Large" version of every vanilla banner, twice the size for twice the
+  materials. New server-synced setting `LargeBanners`, off by default; turning it off only hides
+  them from the hammer.
+- Large banners are new pieces: without the mod they vanish from the world until it is reinstalled.
+- Players on 0.3.x and 0.4.0 can't play together.
+
 ## 0.3.5
 
 - Players on 0.3.x can still play together.

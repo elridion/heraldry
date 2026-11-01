@@ -3,5 +3,6 @@
   "heraldry_input_topic": "Arma sembolü, örn. 42",
   "heraldry_symbol": "Sembol",
   "heraldry_no_emblem": "Arma yok",
-  "heraldry_invalid": "Bilinmeyen sembol. Semboller 0-$1 arasındadır."
+  "heraldry_invalid": "Bilinmeyen sembol. Semboller 0-$1 arasındadır.",
+  "heraldry_large": "Büyük"
 }
