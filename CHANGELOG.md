@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- No changes in game; this release only updates the mod page.
+
 ## 0.4.0
 
 - Optional large banners: a "Large" version of every vanilla banner, twice the size for twice the
