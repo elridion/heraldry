@@ -34,10 +34,13 @@ Stack, build, verification and git workflow are shared by all mods: see `../CLAU
 - **Vanilla banners get only the added `EmblemBanner` component.** Never modify their materials,
   meshes or existing components. Other mods that change vanilla banners (e.g. Balrond
   BannerColorizer) may conflict.
-- **Docs follow code.** In the same change, `package/README.md` keeps the symbol range in sync with
-  `assets/emblems/`, the per-banner symbol table with `BannerStyles`, and the feature list with
-  `BannerPieces`, `LargeBanners` and `EmblemBanner`, the config table with `HeraldryPlugin`; rerun `tools/make_symbol_sheet.ps1` whenever symbols change. The
-  mod page loads that image from `main`, so new symbols show only once pushed.
+- **Docs follow code.** In the same change, `package/README.md` keeps the symbol count and range in
+  sync with `assets/emblems/`, the features and how-to with `BannerPieces`, `LargeBanners` and
+  `EmblemBanner`, and the config table with `HeraldryPlugin`; rerun `tools/make_symbol_sheet.ps1`
+  whenever symbols change. The mod page loads that image from `main`, so new symbols show only
+  once pushed. The store page stays short (the user's call): its first line matches
+  `<PackageDescription>`, then short features, how to use, install notes and the settings;
+  details such as the per-banner colours belong in this file, not the store page.
 
 ## Art and licensing
 
